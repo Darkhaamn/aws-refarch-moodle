@@ -1,4 +1,3 @@
----
 AWSTemplateFormatVersion: 2010-09-09
 
 Description: Reference Architecture to host Moodle on AWS - Creates Moodle web Auto Scaling group
@@ -474,7 +473,7 @@ Resources:
             yum:
               awslogs: []
               httpd24: []
-              postgresql95: []
+              postgresql93: []
               php72: []
               php72-pgsql: []
               php72-gd: []
@@ -659,10 +658,10 @@ Resources:
                 #!/bin/bash -xe
 
                 #Install memcached and then remove it. Memcached is not actually needed. We install amazon-elasticache-cluster-client.so instead. However Moodle does not detect memcached is installed. Therefore, this tricks Moodle into thinking it is installed.
-                sudo yum install -y php70-pecl-memcached
-                sudo yum remove -y php70-pecl-memcached
+                sudo yum install -y php72-pecl-memcached
+                sudo yum remove -y php72-pecl-memcached
 
-                wget -P /tmp/ https://elasticache-downloads.s3.amazonaws.com/ClusterClient/php-7.2/latest-64bit
+                wget -P /tmp/ https://elasticache-downloads.s3.amazonaws.com/ClusterClient/PHP-7.2/latest-64bit
                 tar -xf '/tmp/latest-64bit'
                 cp '/tmp/artifact/amazon-elasticache-cluster-client.so' /usr/lib64/php/7.2/modules/
                 if [ ! -f /etc/php-7.2.d/50-memcached.ini ]; then
